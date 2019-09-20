@@ -1,20 +1,21 @@
 /*
- * peripherals.c
+ * ADC.c
  *
- *  Created on: Sep 19, 2019
+ *  Created on: Sep 20, 2019
  *      Author: Hanna Muratovic
  */
+
 #include <msp430.h>
-#include "peripherals.h"
+#include "ADC.h"
 
 void configure_ADC(void) {
-    // Configure ADC A5~7 pins
-    SYSCFG2 |= ADCPCTL5 | ADCPCTL6 | ADCPCTL7;
+    // Configure ADC A2~4 pins
+    SYSCFG2 |= ADCPCTL2 | ADCPCTL3 | ADCPCTL4;
 
     // Configure ADC
     ADCCTL0 |= ADCSHT_2 | ADCON;                                // 16ADCclks, ADC ON
     ADCCTL1 |= ADCSHP | ADCSHS_2 | ADCCONSEQ_3;                 // ADC clock MODCLK, sampling timer, TA1.1B trig.,repeat sequence
-    ADCCTL2 &= ~ADCRES;                                         // 8-bit conversion results
+    //ADCCTL2 &= ~ADCRES;                                         // 8-bit conversion results
     ADCMCTL0 |= ADCINCH_2 | ADCSREF_1;                          // A0~2(EoS); Vref=1.5V
     ADCIE |= ADCIE0;                                            // Enable ADC conv complete interrupt
 
@@ -85,6 +86,3 @@ void __attribute__ ((interrupt(ADC_VECTOR))) ADC_ISR (void)
             break;
     }
 }
-
-
-

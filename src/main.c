@@ -1,6 +1,7 @@
 //includes
-#include <msp430.h> 
-#include "peripherals.h"
+#include <msp430.h>
+#include "ADC.h"
+#include "UART.h"
 #include "functions.h"
 
 //variables
@@ -14,7 +15,7 @@ int main(void)
     // Disable the GPIO power-on default high-impedance mode to activate
     // previously configured port settings
     PM5CTL0 &= ~LOCKLPM5;
-	
+
     //configure ADCs
 	configure_ADC();
 
@@ -29,5 +30,6 @@ int main(void)
         __no_operation();                                       // Only for debugger
 
     }
-	return 0;
 }
+
+

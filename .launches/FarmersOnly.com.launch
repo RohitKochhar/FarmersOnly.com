@@ -4,6 +4,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.C:\Users\hanna\ECE298\FarmersOnly.com\targetConfigs\MSP430FR4133.ccxml.TI MSP430 USB1/MSP430" value="${build_artifact:FarmersOnly.com}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.C:\Users\hanna\ECE298\FarmersOnly.com\targetConfigs\MSP430FR4133.ccxml.TI MSP430 USB1/MSP430" value="FarmersOnly.com"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:FarmersOnly.com}"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.C:\Users\hanna\ECE298\FarmersOnly.com\targetConfigs\MSP430FR4133.ccxml.TI MSP430 USB1/MSP430" value="C:/Users\hanna\ECE298\FarmersOnly.com\Debug\FarmersOnly.com.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/FarmersOnly.com"/>
 </listAttribute>

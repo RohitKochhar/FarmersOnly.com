@@ -1,1 +1,1 @@
-"./functions.obj" "./main.obj" "./peripherals.obj" "../lnk_msp430fr4133.cmd" -llibc.a 
+"./src/ADC.obj" "./src/UART.obj" "./src/functions.obj" "./src/main.obj" "../lnk_msp430fr4133.cmd" -llibc.a 

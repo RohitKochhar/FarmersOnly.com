@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.4                     
 ******************************************************************************
->> Linked Thu Sep 19 20:00:46 2019
+>> Linked Fri Sep 20 16:50:10 2019
 
 OUTPUT FILE NAME:   <FarmersOnly.com.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000c57a
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000c574
 
 
 MEMORY CONFIGURATION
@@ -15,8 +15,8 @@ MEMORY CONFIGURATION
   PERIPHERALS_8BIT      00000010   000000f0  00000000  000000f0  RWIX
   PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
   INFOA                 00001800   00000200  00000000  00000200  RWIX
-  RAM                   00002000   00000800  000000a5  0000075b  RWIX
-  FRAM                  0000c400   00003b80  000001aa  000039d6  RWIX
+  RAM                   00002000   00000800  000000a7  00000759  RWIX
+  FRAM                  0000c400   00003b80  000001ba  000039c6  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   INT00                 0000ff88   00000002  00000000  00000002  RWIX
@@ -109,21 +109,22 @@ section   page    origin      length       input sections
 
 .const     0    0000c412    00000000     UNINITIALIZED
 
-.text      0    0000c412    00000198     
-                  0000c412    0000006c     peripherals.obj (.text:configure_ADC)
-                  0000c47e    0000006a     rts430x_lc_sd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  0000c4e8    0000003e                            : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
-                  0000c526    0000002c     peripherals.obj (.text:_isr:ADC_ISR)
-                  0000c552    00000028     main.obj (.text:main)
-                  0000c57a    0000001c     rts430x_lc_sd_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs)
-                  0000c596    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  0000c59e    00000006                            : exit.c.obj (.text:abort)
-                  0000c5a4    00000004                            : pre_init.c.obj (.text:_system_pre_init)
-                  0000c5a8    00000002                            : startup.c.obj (.text:_system_post_cinit)
+.text      0    0000c412    000001a8     
+                  0000c412    0000006a     rts430x_lc_sd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  0000c47c    00000066     ADC.obj (.text:configure_ADC)
+                  0000c4e2    0000003e     rts430x_lc_sd_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  0000c520    0000002c     ADC.obj (.text:_isr:ADC_ISR)
+                  0000c54c    00000028     main.obj (.text:main)
+                  0000c574    0000001c     rts430x_lc_sd_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs)
+                  0000c590    00000016     UART.obj (.text:_isr:USCI_A0_ISR)
+                  0000c5a6    00000008     rts430x_lc_sd_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  0000c5ae    00000006                            : exit.c.obj (.text:abort)
+                  0000c5b4    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  0000c5b8    00000002                            : startup.c.obj (.text:_system_post_cinit)
 
-.bss       0    00002000    00000005     UNINITIALIZED
-                  00002000    00000004     (.common:ADCresult)
-                  00002004    00000001     (.common:numADC)
+.bss       0    00002000    00000007     UNINITIALIZED
+                  00002000    00000006     (.common:ADCresult)
+                  00002006    00000001     (.common:numADC)
 
 .stack     0    00002760    000000a0     UNINITIALIZED
                   00002760    00000002     rts430x_lc_sd_eabi.lib : boot.c.obj (.stack)
@@ -139,13 +140,13 @@ PORT1      0    0000ffe6    00000002
                   0000ffe6    00000002     rts430x_lc_sd_eabi.lib : int47.asm.obj (.int47)
 
 ADC        0    0000ffe8    00000002     
-                  0000ffe8    00000002     peripherals.obj (.int48)
+                  0000ffe8    00000002     ADC.obj (.int48)
 
 USCI_B0    0    0000ffea    00000002     
                   0000ffea    00000002     rts430x_lc_sd_eabi.lib : int49.asm.obj (.int49)
 
 USCI_A0    0    0000ffec    00000002     
-                  0000ffec    00000002     rts430x_lc_sd_eabi.lib : int50.asm.obj (.int50)
+                  0000ffec    00000002     UART.obj (.int50)
 
 WDT        0    0000ffee    00000002     
                   0000ffee    00000002     rts430x_lc_sd_eabi.lib : int51.asm.obj (.int51)
@@ -188,11 +189,12 @@ MODULE SUMMARY
 
        Module                 code   ro data   rw data
        ------                 ----   -------   -------
-    .\
-       peripherals.obj        152    2         0      
-       main.obj               40     0         5      
+    .\src\
+       ADC.obj                146    2         7      
+       main.obj               40     0         0      
+       UART.obj               22     2         0      
     +--+----------------------+------+---------+---------+
-       Total:                 192    2         5      
+       Total:                 208    4         7      
                                                       
     C:\ti\ccsv8\tools\compiler\ti-cgt-msp430_18.1.4.LTS\lib\rts430x_lc_sd_eabi.lib
        autoinit.c.obj         106    0         0      
@@ -205,7 +207,6 @@ MODULE SUMMARY
        int46.asm.obj          0      2         0      
        int47.asm.obj          0      2         0      
        int49.asm.obj          0      2         0      
-       int50.asm.obj          0      2         0      
        int51.asm.obj          0      2         0      
        int52.asm.obj          0      2         0      
        int53.asm.obj          0      2         0      
@@ -216,18 +217,18 @@ MODULE SUMMARY
        int58.asm.obj          0      2         0      
        startup.c.obj          2      0         0      
     +--+----------------------+------+---------+---------+
-       Total:                 216    28        0      
+       Total:                 216    26        0      
                                                       
        Stack:                 0      0         160    
        Linker Generated:      0      18        0      
     +--+----------------------+------+---------+---------+
-       Grand Total:           408    48        165    
+       Grand Total:           424    48        167    
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 0000c40a records: 1, size/record: 8, table size: 8
-	.bss: load addr=0000c400, load size=00000006 bytes, run addr=00002000, run size=00000005 bytes, compression=zero_init
+	.bss: load addr=0000c400, load size=00000006 bytes, run addr=00002000, run size=00000007 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
@@ -270,7 +271,7 @@ address   name
 00000712  ADCMEM0                                
 00000713  ADCMEM0_H                              
 00000712  ADCMEM0_L                              
-0000c526  ADC_ISR                                
+0000c520  ADC_ISR                                
 00002000  ADCresult                              
 00000660  BAKMEM0                                
 00000661  BAKMEM0_H                              
@@ -320,7 +321,7 @@ address   name
 00000672  BAKMEM9                                
 00000673  BAKMEM9_H                              
 00000672  BAKMEM9_L                              
-0000c59e  C$$EXIT                                
+0000c5ae  C$$EXIT                                
 000002ee  CAPTIO0CTL                             
 000002ef  CAPTIO0CTL_H                           
 000002ee  CAPTIO0CTL_L                           
@@ -747,6 +748,7 @@ address   name
 0000054e  UCB0TXBUF                              
 0000054f  UCB0TXBUF_H                            
 0000054e  UCB0TXBUF_L                            
+0000c590  USCI_A0_ISR                            
 000001cc  WDTCTL                                 
 000001cd  WDTCTL_H                               
 000001cc  WDTCTL_L                               
@@ -756,8 +758,8 @@ address   name
 0000c412  __TI_CINIT_Limit                       
 0000c406  __TI_Handler_Table_Base                
 0000c40a  __TI_Handler_Table_Limit               
-0000c596  __TI_ISR_TRAP                          
-0000c47e  __TI_auto_init_nobinit_nopinit_hold_wdt
+0000c5a6  __TI_ISR_TRAP                          
+0000c412  __TI_auto_init_nobinit_nopinit_hold_wdt
 0000ffe2  __TI_int45                             
 0000ffe4  __TI_int46                             
 0000ffe6  __TI_int47                             
@@ -775,17 +777,17 @@ address   name
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-0000c4e8  __TI_zero_init_nomemset                
+0000c4e2  __TI_zero_init_nomemset                
 ffffffff  __c_args__                             
-0000c57a  _c_int00_noargs                        
+0000c574  _c_int00_noargs                        
 0000fffe  _reset_vector                          
 00002760  _stack                                 
-0000c5a8  _system_post_cinit                     
-0000c5a4  _system_pre_init                       
-0000c59e  abort                                  
-0000c412  configure_ADC                          
-0000c552  main                                   
-00002004  numADC                                 
+0000c5b8  _system_post_cinit                     
+0000c5b4  _system_pre_init                       
+0000c5ae  abort                                  
+0000c47c  configure_ADC                          
+0000c54c  main                                   
+00002006  numADC                                 
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -1301,24 +1303,25 @@ address   name
 0000071e  ADCIV_L                                
 0000071f  ADCIV_H                                
 00002000  ADCresult                              
-00002004  numADC                                 
+00002006  numADC                                 
 00002760  _stack                                 
 00002800  __STACK_END                            
 0000c406  __TI_Handler_Table_Base                
 0000c40a  __TI_CINIT_Base                        
 0000c40a  __TI_Handler_Table_Limit               
 0000c412  __TI_CINIT_Limit                       
-0000c412  configure_ADC                          
-0000c47e  __TI_auto_init_nobinit_nopinit_hold_wdt
-0000c4e8  __TI_zero_init_nomemset                
-0000c526  ADC_ISR                                
-0000c552  main                                   
-0000c57a  _c_int00_noargs                        
-0000c596  __TI_ISR_TRAP                          
-0000c59e  C$$EXIT                                
-0000c59e  abort                                  
-0000c5a4  _system_pre_init                       
-0000c5a8  _system_post_cinit                     
+0000c412  __TI_auto_init_nobinit_nopinit_hold_wdt
+0000c47c  configure_ADC                          
+0000c4e2  __TI_zero_init_nomemset                
+0000c520  ADC_ISR                                
+0000c54c  main                                   
+0000c574  _c_int00_noargs                        
+0000c590  USCI_A0_ISR                            
+0000c5a6  __TI_ISR_TRAP                          
+0000c5ae  C$$EXIT                                
+0000c5ae  abort                                  
+0000c5b4  _system_pre_init                       
+0000c5b8  _system_post_cinit                     
 0000ffe2  __TI_int45                             
 0000ffe4  __TI_int46                             
 0000ffe6  __TI_int47                             
@@ -1339,4 +1342,4 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
-[546 symbols]
+[547 symbols]
