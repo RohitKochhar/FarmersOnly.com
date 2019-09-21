@@ -5,18 +5,18 @@
  *      Author: Hanna Muratovic
  */
 
-#include <msp430.h>
+#include <msp430fr4133.h>
 #include "ADC.h"
 
 void configure_ADC(void) {
-    // Configure ADC A2~4 pins
-    SYSCFG2 |= ADCPCTL2 | ADCPCTL3 | ADCPCTL4;
+    // Configure ADC A3~5 pins
+    SYSCFG2 |= ADCPCTL3 | ADCPCTL4 | ADCPCTL5;
 
     // Configure ADC
     ADCCTL0 |= ADCSHT_2 | ADCON;                                // 16ADCclks, ADC ON
     ADCCTL1 |= ADCSHP | ADCSHS_2 | ADCCONSEQ_3;                 // ADC clock MODCLK, sampling timer, TA1.1B trig.,repeat sequence
-    //ADCCTL2 &= ~ADCRES;                                         // 8-bit conversion results
-    ADCMCTL0 |= ADCINCH_2 | ADCSREF_1;                          // A0~2(EoS); Vref=1.5V
+    //ADCCTL2 &= ~ADCRES;                                       // 8-bit conversion results
+    ADCMCTL0 |= ADCINCH_5 | ADCSREF_1;                          // A0~2(EoS); Vref=1.5V
     ADCIE |= ADCIE0;                                            // Enable ADC conv complete interrupt
 
     // Configure reference
@@ -24,16 +24,6 @@ void configure_ADC(void) {
     PMMCTL2 |= INTREFEN;                                        // Enable internal reference
     __delay_cycles(400);                                        // Delay for reference settling
     __no_operation();
-
-    // Configure TA1.1B as ADC trigger signal
-    // Note: The TA1.1B is configured for 200us 50% PWM, which will trigger ADC
-    // sample-and-conversion every 200us. The period of TA1.1B trigger event
-    // should be more than the time period taken for ADC sample-and-conversion
-    // and ADC interrupt service routine of each channel, which is about 57us in this code
-    TA1CCR0 = 200-1;                                            // PWM Period, 200us
-    TA1CCTL1 = OUTMOD_7;                                        // CCR1 reset/set
-    TA1CCR1 = 100;                                              // CCR1 PWM duty cycle, 50%
-    TA1CTL = TASSEL__SMCLK | MC__UP | TACLR;                    // SMCLK, up mode, clear TAR
 
     // Configure TA1.1B as ADC trigger signal
     // Note: The TA1.1B is configured for 200us 50% PWM, which will trigger ADC

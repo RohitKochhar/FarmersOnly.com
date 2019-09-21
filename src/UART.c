@@ -4,7 +4,7 @@
  *  Created on: Sep 20, 2019
  *      Author: Hanna Muratovic
  */
-#include <msp430.h>
+#include <msp430fr4133.h>
 #include "UART.h"
 
 void configure_UART(void) {

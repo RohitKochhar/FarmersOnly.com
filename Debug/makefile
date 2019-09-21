@@ -10,7 +10,9 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./__Templates/Cpp_source.obj" \
 "./src/ADC.obj" \
+"./src/LCD.obj" \
 "./src/UART.obj" \
 "./src/functions.obj" \
 "./src/main.obj" \
@@ -26,8 +28,10 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include __Templates/subdir_vars.mk
 -include src/subdir_vars.mk
 -include subdir_rules.mk
+-include __Templates/subdir_rules.mk
 -include src/subdir_rules.mk
 -include objects.mk
 
@@ -159,8 +163,9 @@ FarmersOnly.com.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "src\ADC.obj" "src\UART.obj" "src\functions.obj" "src\main.obj" 
-	-$(RM) "src\ADC.d" "src\UART.d" "src\functions.d" "src\main.d" 
+	-$(RM) "__Templates\Cpp_source.obj" "src\ADC.obj" "src\LCD.obj" "src\UART.obj" "src\functions.obj" "src\main.obj" 
+	-$(RM) "src\ADC.d" "src\LCD.d" "src\UART.d" "src\functions.d" "src\main.d" 
+	-$(RM) "__Templates\Cpp_source.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
