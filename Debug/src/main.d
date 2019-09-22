@@ -16,6 +16,8 @@ src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_t
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_types.h
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_stdint.h
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_stdint.h
+src/main.obj: ../src/button.h
+src/main.obj: ../src/PWM.h
 
 ../src/main.c: 
 C:/ti/ccsv8/ccs_base/msp430/include/msp430fr4133.h: 
@@ -33,3 +35,5 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_types.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_types.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_stdint.h: 
+../src/button.h: 
+../src/PWM.h: 

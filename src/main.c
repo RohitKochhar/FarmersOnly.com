@@ -4,12 +4,16 @@
 #include "UART.h"
 #include "functions.h"
 #include "LCD.h"
+#include "button.h"
+#include "PWM.h"
 
 //variables
-
+static uint16_t resMoist;
+static uint16_t resTemp;
 
 int main(void)
 {
+    __enable_interrupt();
     // Stop watchdog timer
 	WDTCTL = WDTPW | WDTHOLD;
 
@@ -17,19 +21,18 @@ int main(void)
     // previously configured port settings
     PM5CTL0 &= ~LOCKLPM5;
 
-    //configure ADCs
+    // Configure peripherals
 	configure_ADC();
 	configure_LCD();
+	configure_UART();
+	configure_button();
+	configure_PWM();
 
-	//main function loop
+	// Main function loop
     while(1)
     {
-        numADC = 2;
 
-        ADCCTL0 |= ADCENC;                                      // Enable ADC
-        TA1CTL |= TACLR;                                        // Clear TAR to start the ADC sample-and-conversion
-        display_LCD(1, 0, 0);
-        __bis_SR_register(LPM0_bits | GIE);                     // Enter LPM0 w/ interrupts
+        display_LCD(retNumZone(), resMoist, resTemp);
         __no_operation();                                       // Only for debugger
 
     }

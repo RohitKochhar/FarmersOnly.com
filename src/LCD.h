@@ -12,6 +12,6 @@
 
 void configure_LCD(void);
 
-void display_LCD(uint8_t zoneNumber, uint16_t zoneMoisture, uint16_t zoneTemp);
+void display_LCD(char zoneNumber, uint16_t zoneMoisture, uint16_t zoneTemp);
 
 #endif /* SRC_LCD_H_ */

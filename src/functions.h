@@ -2,7 +2,7 @@
  * functions.h
  *
  *  Created on: Sep 19, 2019
- *      Author: hanna
+ *      Author: Hanna Muratovic
  */
 
 #ifndef FUNCTIONS_H_

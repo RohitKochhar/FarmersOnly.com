@@ -11,7 +11,6 @@
 
 //variables
 unsigned int ADCresult[3];                                    // 16-bit ADC conversion result array
-unsigned char numADC;
 
 //functions
 void configure_ADC(void);

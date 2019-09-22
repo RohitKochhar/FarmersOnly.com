@@ -8,6 +8,8 @@
 #include <msp430fr4133.h>
 #include "ADC.h"
 
+unsigned char numADC = 2;
+
 void configure_ADC(void) {
     // Configure ADC A3~5 pins
     SYSCFG2 |= ADCPCTL3 | ADCPCTL4 | ADCPCTL5;
@@ -34,6 +36,9 @@ void configure_ADC(void) {
     TA1CCTL1 = OUTMOD_7;                                        // CCR1 reset/set
     TA1CCR1 = 100;                                              // CCR1 PWM duty cycle, 50%
     TA1CTL = TASSEL__SMCLK | MC__UP | TACLR;                    // SMCLK, up mode, clear TAR
+
+    ADCCTL0 |= ADCENC;                                          // Enable ADC
+    TA1CTL |= TACLR;                                            // Clear TAR to start the ADC sample-and-conversion
 }
 
 // ADC interrupt service routine

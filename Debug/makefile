@@ -13,7 +13,9 @@ ORDERED_OBJS += \
 "./__Templates/Cpp_source.obj" \
 "./src/ADC.obj" \
 "./src/LCD.obj" \
+"./src/PWM.obj" \
 "./src/UART.obj" \
+"./src/button.obj" \
 "./src/functions.obj" \
 "./src/main.obj" \
 "../lnk_msp430fr4133.cmd" \
@@ -163,8 +165,8 @@ FarmersOnly.com.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "__Templates\Cpp_source.obj" "src\ADC.obj" "src\LCD.obj" "src\UART.obj" "src\functions.obj" "src\main.obj" 
-	-$(RM) "src\ADC.d" "src\LCD.d" "src\UART.d" "src\functions.d" "src\main.d" 
+	-$(RM) "__Templates\Cpp_source.obj" "src\ADC.obj" "src\LCD.obj" "src\PWM.obj" "src\UART.obj" "src\button.obj" "src\functions.obj" "src\main.obj" 
+	-$(RM) "src\ADC.d" "src\LCD.d" "src\PWM.d" "src\UART.d" "src\button.d" "src\functions.d" "src\main.d" 
 	-$(RM) "__Templates\Cpp_source.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

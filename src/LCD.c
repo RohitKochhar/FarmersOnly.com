@@ -30,83 +30,53 @@ const uint8_t digits[10] =
      0xF7                                                       // "9"
 };
 
-const uint8_t letters[26] =
+// LCD memory map for uppercase letters
+const uint8_t letters[26][2] =
 {
-    0x41,                                                       // "A"
-    0x42,                                                       // "B"
-    0x43,                                                       // "C"
-    0x44,                                                       // "D"
-    0x45,                                                       // "E"
-    0x46,                                                       // "F"
-    0x47,                                                       // "G"
-    0x48,                                                       // "H"
-    0x49,                                                       // "I"
-    0x4a,                                                       // "J"
-    0x4b,                                                       // "K"
-    0x4c,                                                       // "L"
-    0x4d,                                                       // "M"
-    0x4e,                                                       // "N"
-    0x4f,                                                       // "O"
-    0x50,                                                       // "P"
-    0x51,                                                       // "Q"
-    0x51,                                                       // "R"
-    0x53,                                                       // "S"
-    0x54,                                                       // "T"
-    0x55,                                                       // "U"
-    0x56,                                                       // "V"
-    0x57,                                                       // "W"
-    0x58,                                                       // "X"
-    0x59,                                                       // "Y"
-    0x5a                                                       // "Z"
+    {0xEF, 0x00},  // "A"
+    {0xF1, 0x50},  // "B"
+    {0x9C, 0x00},  // "C"
+    {0xF0, 0x50},  // "D"
+    {0x9F, 0x00},  // "E"
+    {0x8F, 0x00},  // "F"
+    {0xBD, 0x00},  // "G"
+    {0x6F, 0x00},  // "H"
+    {0x90, 0x50},  // "I"
+    {0x78, 0x00},  // "J"
+    {0x0E, 0x22},  // "K"
+    {0x1C, 0x00},  // "L"
+    {0x6C, 0xA0},  // "M"
+    {0x6C, 0x82},  // "N"
+    {0xFC, 0x00},  // "O"
+    {0xCF, 0x00},  // "P"
+    {0xFC, 0x02},  // "Q"
+    {0xCF, 0x02},  // "R"
+    {0xB7, 0x00},  // "S"
+    {0x80, 0x50},  // "T"
+    {0x7C, 0x00},  // "U"
+    {0x0C, 0x28},  // "V"
+    {0x6C, 0x0A},  // "W"
+    {0x00, 0xAA},  // "X"
+    {0x00, 0xB0},  // "Y"
+    {0x90, 0x28}   // "Z"
 };
 
-//// LCD memory map for uppercase letters
-//const char letters[26][2] =
-//{
-//    {0xEF, 0x00},  /* "A" LCD segments a+b+c+e+f+g+m */
-//    {0xF1, 0x50},  /* "B" */
-//    {0x9C, 0x00},  /* "C" */
-//    {0xF0, 0x50},  /* "D" */
-//    {0x9F, 0x00},  /* "E" */
-//    {0x8F, 0x00},  /* "F" */
-//    {0xBD, 0x00},  /* "G" */
-//    {0x6F, 0x00},  /* "H" */
-//    {0x90, 0x50},  /* "I" */
-//    {0x78, 0x00},  /* "J" */
-//    {0x0E, 0x22},  /* "K" */
-//    {0x1C, 0x00},  /* "L" */
-//    {0x6C, 0xA0},  /* "M" */
-//    {0x6C, 0x82},  /* "N" */
-//    {0xFC, 0x00},  /* "O" */
-//    {0xCF, 0x00},  /* "P" */
-//    {0xFC, 0x02},  /* "Q" */
-//    {0xCF, 0x02},  /* "R" */
-//    {0xB7, 0x00},  /* "S" */
-//    {0x80, 0x50},  /* "T" */
-//    {0x7C, 0x00},  /* "U" */
-//    {0x0C, 0x28},  /* "V" */
-//    {0x6C, 0x0A},  /* "W" */
-//    {0x00, 0xAA},  /* "X" */
-//    {0x00, 0xB0},  /* "Y" */
-//    {0x90, 0x28}   /* "Z" */
-//};
-
- void writeLCD(uint8_t c, uint8_t position)
+ void writeLCD(char c, uint8_t position)
  {
      if (c == ' ')
      {
          // Display space
          LCDMEM[position] = 0;
      }
-     else if (c >= 0 && c <= 9)
+     else if (c >= '0' && c <= '9')
      {
          // Display digit
-         LCDMEM[position] = digits[c];
+         LCDMEM[position] = digits[c-48];
      }
      else if (c >= 'A' && c <= 'Z')
      {
          // Display alphabet
-         LCDMEM[position] = letters[c-65];
+         LCDMEM[position] = letters[c-65][0] | (letters[c-65][1] << 8);
      }
  }
 
@@ -147,12 +117,13 @@ void configure_LCD(void) {
         PMMCTL0_L |= PMMREGOFF_L;                                  // and set PMMREGOFF
 }
 
-void display_LCD(uint8_t zoneNumber, uint16_t zoneMoisture, uint16_t zoneTemp) {
+void display_LCD(char zoneNumber, uint16_t zoneMoisture, uint16_t zoneTemp) {
 
-    writeLCD("Z", pos1);
-    writeLCD(2, pos2);
-    writeLCD(3, pos3);
-    writeLCD(4, pos4);
-    writeLCD(5, pos5);
-    writeLCD(6, pos6);
+    writeLCD('Z', pos1);
+    writeLCD('O', pos2);
+    writeLCD('N', pos3);
+    writeLCD('E', pos4);
+    writeLCD(' ', pos5);
+    writeLCD(zoneNumber, pos6);
+
 }
